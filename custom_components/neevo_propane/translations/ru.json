@@ -1,0 +1,39 @@
+{
+  "title": "Neevo Пропан",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Подключение к Neevo",
+        "description": "Введи Base64 токен (без 'Basic ').",
+        "data": {
+          "token": "Base64 токен"
+        }
+      },
+      "pick_device": {
+        "title": "Выбор устройства",
+        "description": "Выбери устройство",
+        "data": {
+          "device_id": "Устройство"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Не удалось подключиться к API",
+      "invalid_auth": "Неверный токен",
+      "unknown": "Неизвестная ошибка"
+    },
+    "abort": {
+      "already_configured": "Это устройство уже добавлено"
+    },
+    "options": {
+      "step": {
+        "init": {
+          "title": "Опции",
+          "data": {
+            "scan_interval": "Интервал опроса (сек)"
+          }
+        }
+      }
+    }
+  }
+}

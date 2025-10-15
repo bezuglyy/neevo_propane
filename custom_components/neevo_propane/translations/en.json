@@ -1,0 +1,39 @@
+{
+  "title": "Neevo Propane",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Neevo",
+        "description": "Enter Base64 token (without 'Basic ').",
+        "data": {
+          "token": "Base64 token"
+        }
+      },
+      "pick_device": {
+        "title": "Pick Device",
+        "description": "Select the device",
+        "data": {
+          "device_id": "Device"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to API",
+      "invalid_auth": "Invalid token",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This device is already configured"
+    },
+    "options": {
+      "step": {
+        "init": {
+          "title": "Options",
+          "data": {
+            "scan_interval": "Scan interval (seconds)"
+          }
+        }
+      }
+    }
+  }
+}
