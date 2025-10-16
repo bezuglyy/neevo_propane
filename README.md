@@ -46,3 +46,84 @@
 
 ## Откуда взять токен?
 Если в запросах к API у вас есть заголовок:
+# Визуальный стиль в виде Балона #
+type: custom:button-card
+entity: sensor.neevo_propane_none_level
+name: Пропан
+show_icon: false
+show_state: true
+tap_action:
+  action: more-info
+triggers_update:
+  - sensor.neevo_propane_none_level
+state_display: |
+  [[[
+    const v = Number(entity?.state);
+    if (isNaN(v)) return '—';
+    return `${Math.max(0, Math.min(100, v)).toFixed(0)}%`;
+  ]]]
+styles:
+  grid:
+    - grid-template-areas: "\"n\" \"s\""
+    - grid-template-rows: 1fr auto
+    - grid-template-columns: 1fr
+  name:
+    - justify-self: center
+    - padding-top: 6px
+    - font-weight: 700
+    - font-size: 1.8rem
+  state:
+    - justify-self: center
+    - padding-bottom: 10px
+    - font-weight: 800
+    - font-size: 3.8rem
+    - transition: transform 300ms ease, opacity 300ms ease
+    - transform: translateY(0)
+    - opacity: 1
+  card:
+    - height: 140px
+    - width: 202px
+    - padding: 0
+    - border-radius: 20px
+    - box-shadow: inset 0 0 0 2px rgba(255,255,255,0.15)
+    - transition: background 1.2s cubic-bezier(0.22, 1, 0.36, 1)
+    - will-change: background
+    - background: |
+        [[[
+          const raw = Number(entity?.state);
+          const pct = isNaN(raw) ? 0 : Math.max(0, Math.min(100, raw));
+          const color = pct < 15 
+            ? 'rgba(239,68,68,0.92)'      // красный
+            : (pct < 35 
+              ? 'rgba(245,158,11,0.92)'   // оранжевый
+              : 'rgba(56,189,248,0.92)'); // голубой
+          // Мягкий «подлёт» текста при смене числа
+          const el = this?.shadowRoot?.querySelector('.state');
+          if (el) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(6px)';
+            setTimeout(() => {
+              el.style.opacity = '1';
+              el.style.transform = 'translateY(0)';
+            }, 0);
+          }
+          return `linear-gradient(to top, ${color} ${pct}%, rgba(255,255,255,0.06) ${pct}%)`;
+        ]]]
+    - "-webkit-mask": >
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 120 240'> <g fill='%23000'>
+          <rect x='25' y='46' width='70' height='140' rx='18' ry='18'/>
+          <ellipse cx='60' cy='46' rx='35' ry='12'/>
+          <ellipse cx='60' cy='186' rx='35' ry='12'/>
+          <rect x='40' y='20' width='40' height='28' rx='6'/>
+          <rect x='50' y='8'  width='20' height='12' rx='3'/>
+        </g> </svg>") no-repeat center / contain
+    - mask: >
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 120 240'> <g fill='%23000'>
+          <rect x='25' y='46' width='70' height='140' rx='18' ry='18'/>
+          <ellipse cx='60' cy='46' rx='35' ry='12'/>
+          <ellipse cx='60' cy='186' rx='35' ry='12'/>
+          <rect x='40' y='20' width='40' height='28' rx='6'/>
+          <rect x='50' y='8'  width='20' height='12' rx='3'/>
+        </g> </svg>") no-repeat center / contain
